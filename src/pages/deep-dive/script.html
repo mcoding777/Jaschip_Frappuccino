@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Console Log</title>
+</head>
+
+<body>
+    <pre id="console"></pre>
+    <script>
+        'use strict'
+        const consoleDiv = document.getElementById("console")
+        const consoleToHtml = function () {
+            consoleDiv.textContent += `${(new Date()).toLocaleString("ko-KR")} >>>`
+            Array.from(arguments).forEach(el => {
+                consoleDiv.textContent += " "
+                const insertValue = typeof el === "object" ? JSON.stringify(el) : el
+                consoleDiv.textContent += insertValue
+            })
+            consoleDiv.textContent += "\n"
+        }
+        window.console.log = consoleToHtml
+
+        const object = {
+            a: "AAA",
+            b: "BBB",
+            c: {
+                c_a: "CA",
+                c_b: "CB"
+            },
+            f: function () {
+                return true
+            }
+        }
+        console.log("지원자 %s: %d점", "김을동", 30, [3, 0, '점'])
+        console.log("aaa", 32.145, object)
+        console.log()
+        console.log(consoleToHtml)
+    </script>
+</body>
+
+</html>
